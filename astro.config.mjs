@@ -4,6 +4,6 @@ import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
   integrations: [react(), tailwind()],
-  site: 'https://creativetimofficial.github.io',
+  site: 'https://yeezuz2020.vercel.app/',
   base: '/',
 });

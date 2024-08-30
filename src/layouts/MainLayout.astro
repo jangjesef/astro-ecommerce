@@ -1,0 +1,13 @@
+---
+// src/layouts/MainLayout.astro
+import { AudioPlayerProvider } from '../context/AudioPlayerContext';
+
+const Layout = ({ children }) => {
+  return (
+    <AudioPlayerProvider>
+      <slot />
+    </AudioPlayerProvider>
+  );
+};
+
+export default Layout;

@@ -1,5 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const concerts = [
+  { id: 1, date: '2024-09-15', venue: 'O2 Arena, Praha', status: 'upcoming' },
+  { id: 2, date: '2024-08-20', venue: 'Sinobo Stadium, Praha', status: 'upcoming' },
+  { id: 3, date: '2024-07-05', venue: 'DRFG Arena, Brno', status: 'upcoming' },
+  { id: 4, date: '2024-06-10', venue: 'Ostravar Aréna, Ostrava', status: 'past' },
+  { id: 5, date: '2024-05-01', venue: 'Home Credit Arena, Liberec', status: 'past' },
+];
+
+const upcomingConcerts = concerts.filter(concert => concert.status === 'upcoming');
+const pastConcerts = concerts.filter(concert => concert.status === 'past');
 ---
 
 <html lang="en">
@@ -11,13 +22,29 @@ import Layout from '../layouts/Layout.astro';
 </head>
 <body>
     <Layout>
-        <h1>Upcoming Concerts</h1>
-        <ul>
-            <li>01/10/2024 - City Hall, New York</li>
-            <li>05/11/2024 - Wembley Stadium, London</li>
-            <li>20/12/2024 - Accor Arena, Paris</li>
-            <!-- Přidejte další koncerty -->
-        </ul>
+        <h1>YEEZUZ2020 KONCERTY</h1>
+        
+        <section>
+            <h2>Nadcházející koncerty</h2>
+            <ul>
+                {upcomingConcerts.map(concert => (
+                    <li>
+                        {new Date(concert.date).toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' })} - {concert.venue}
+                    </li>
+                ))}
+            </ul>
+        </section>
+        
+        <section>
+            <h2>Minulé koncerty</h2>
+            <ul>
+                {pastConcerts.map(concert => (
+                    <li>
+                        {new Date(concert.date).toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' })} - {concert.venue}
+                    </li>
+                ))}
+            </ul>
+        </section>
     </Layout>
 </body>
 </html>

@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Arial:wght@400;700&display=swap');
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.font-sans {
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+nav a, .text-sm {
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  letter-spacing: 0.05em;
+}
+
+button {
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+}

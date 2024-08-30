@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { motion } from "framer-motion";
 
 const concerts = [
   { id: 1, date: '2024-09-15', venue: 'O2 Arena, Praha', status: 'upcoming' },
@@ -11,40 +12,70 @@ const concerts = [
 
 const upcomingConcerts = concerts.filter(concert => concert.status === 'upcoming');
 const pastConcerts = concerts.filter(concert => concert.status === 'past');
+
 ---
 
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Concerts</title>
-</head>
-<body>
-    <Layout>
-        <h1>YEEZUZ2020 KONCERTY</h1>
-        
-        <section>
-            <h2>Nadcházející koncerty</h2>
-            <ul>
-                {upcomingConcerts.map(concert => (
-                    <li>
-                        {new Date(concert.date).toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' })} - {concert.venue}
-                    </li>
-                ))}
-            </ul>
-        </section>
-        
-        <section>
-            <h2>Minulé koncerty</h2>
-            <ul>
-                {pastConcerts.map(concert => (
-                    <li>
-                        {new Date(concert.date).toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' })} - {concert.venue}
-                    </li>
-                ))}
-            </ul>
-        </section>
-    </Layout>
-</body>
-</html>
+<Layout title="YEEZUZ2020 KONCERTY">
+  <main class="min-h-screen bg-black text-white p-8">
+    <h1 class="text-6xl md:text-7xl font-bold mb-12 text-center silver-text">YEEZUZ2020 KONCERTY</h1>
+    
+    <div class="max-w-4xl mx-auto">
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold mb-6 silver-text">Nadcházející koncerty</h2>
+        <ul class="space-y-6">
+          {upcomingConcerts.map(concert => (
+            <li class="border border-white p-6 rounded-lg silver-effect">
+              <motion.div
+                client:load
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <p class="text-xl font-bold">{new Date(concert.date).toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                <p class="text-lg">{concert.venue}</p>
+              </motion.div>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-3xl font-bold mb-6 silver-text">Minulé koncerty</h2>
+        <ul class="space-y-4">
+          {pastConcerts.map(concert => (
+            <li class="border border-white p-4 rounded-lg opacity-60 hover:opacity-100 transition-opacity duration-300">
+              <p class="text-lg">{new Date(concert.date).toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' })} - {concert.venue}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
+
+    <div class="mt-16 text-center">
+      <a href="/" class="inline-block px-8 py-3 border-2 border-white rounded-full text-xl hover:bg-white hover:text-black transition-all duration-300 silver-effect">
+        Zpět na hlavní stránku
+      </a>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .silver-text {
+    color: #E8E8E8;
+    text-shadow: 
+      0 0 5px rgba(192, 192, 192, 0.8),
+      0 0 10px rgba(192, 192, 192, 0.5);
+  }
+
+  .silver-effect {
+    background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+    box-shadow: 
+      0 0 10px rgba(255, 255, 255, 0.1),
+      0 0 20px rgba(255, 255, 255, 0.05);
+  }
+
+  .silver-effect:hover {
+    background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+  }
+</style>
+---

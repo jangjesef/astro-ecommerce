@@ -1,82 +1,139 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 
-const YeezuzPage = () => {
-    const [isPlaying, setIsPlaying] = useState(false);
-    const audioRef = useRef<HTMLAudioElement>(null);
-    const videoRef = useRef<HTMLVideoElement>(null);
+const CustomCursor = () => {
+  const cursorRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        if (isPlaying) {
-            audioRef.current?.play();
-            videoRef.current?.play();
-        } else {
-            audioRef.current?.pause();
-            videoRef.current?.pause();
-        }
-    }, [isPlaying]);
-
-    const togglePlay = () => {
-        setIsPlaying(!isPlaying);
+  useEffect(() => {
+    const moveCursor = (e: MouseEvent) => {
+      if (cursorRef.current) {
+        cursorRef.current.style.left = `${e.clientX}px`;
+        cursorRef.current.style.top = `${e.clientY}px`;
+      }
     };
+    window.addEventListener('mousemove', moveCursor);
+    return () => {
+      window.removeEventListener('mousemove', moveCursor);
+    };
+  }, []);
 
-    return (
-        <div className="relative h-screen overflow-hidden bg-black">
-            <video
-                ref={videoRef}
-                className="absolute top-0 left-0 w-full h-full object-cover opacity-50"
-                loop
-                muted
-            >
-                <source src="/Bigsteppa.mp4" type="video/mp4" />
-            </video>
-            
-            <audio ref={audioRef} loop>
-                <source src="/Bigsteppa.mp3" type="audio/mpeg" />
-            </audio>
-
-            <div className="relative z-10 flex flex-col items-center justify-center h-full text-white">
-                <motion.h1
-                    className="text-6xl md:text-8xl font-bold mb-8"
-                    initial={{ y: -50, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 1, delay: 0.5 }}
-                >
-                    YEEZUZ2020
-                </motion.h1>
-                <motion.div
-                    className="flex flex-col space-y-4"
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 1 }}
-                >
-                    <AnimatedLink href="https://linktr.ee/yeezuz2020" text="LISTEN NOW" />
-                    <AnimatedLink href="/merch" text="MERCHANDISE" />
-                    <AnimatedLink href="/concerts" text="CONCERTS" />
-                </motion.div>
-                <motion.button
-                    className="mt-8 px-6 py-3 bg-white text-black rounded-full font-bold text-lg hover:bg-gray-200 transition-colors"
-                    onClick={togglePlay}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                >
-                    {isPlaying ? 'PAUSE' : 'PLAY MUSIC'}
-                </motion.button>
-            </div>
-        </div>
-    );
+  return (
+    <div
+      ref={cursorRef}
+      className="fixed pointer-events-none z-50 mix-blend-difference"
+      style={{ left: '-100px', top: '-100px' }}
+    >
+      <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 0V30M0 15H30" stroke="white" strokeWidth="2"/>
+      </svg>
+    </div>
+  );
 };
 
-const AnimatedLink = ({ href, text }) => (
-    <motion.a
-        href={href}
-        target="_self"
-        className="px-6 py-2 border border-white rounded-full text-lg hover:bg-white hover:text-black transition-colors"
+const YeezuzPage = () => {
+  const [isMuted, setIsMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = isMuted;
+      if (!isMuted) {
+        videoRef.current.play();
+      }
+    }
+  }, [isMuted]);
+
+  const toggleMute = () => {
+    setIsMuted(!isMuted);
+  };
+
+  return (
+    <div className="relative h-screen bg-black text-white overflow-hidden cursor-none font-sans">
+      <CustomCursor />
+
+      <video
+        ref={videoRef}
+        className="absolute top-0 left-0 w-full h-full object-cover opacity-50"
+        autoPlay
+        loop
+        playsInline
+        muted
+      >
+        <source src="/Bigsteppa.mp4" type="video/mp4" />
+      </video>
+
+      <nav className="absolute top-0 left-0 w-full p-4 flex justify-between items-center text-sm z-10">
+        <div className="space-x-6">
+          {['HOME', 'STORE', 'ABOUT', 'PREORDER'].map((item) => (
+            <motion.a
+              key={item}
+              href={`/${item.toLowerCase()}`}
+              className="hover:text-gray-300 transition-colors duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {item}
+            </motion.a>
+          ))}
+        </div>
+        <div>
+          <motion.a href="https://www.instagram.com/yeezuzboy/?hl=cs" className="hover:text-gray-300 mr-6" whileHover={{ scale: 1.05 }}>INSTAGRAM</motion.a>
+          <motion.a href="mailto:yeezuz332@gmail.com" className="hover:text-gray-300" whileHover={{ scale: 1.05 }}>BOOKING</motion.a>
+        </div>
+      </nav>
+
+      <div className="relative z-10 flex flex-col items-center justify-center h-full">
+        <motion.h1 
+          className="text-8xl font-bold mb-24"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
+          YEEZUZ2020
+        </motion.h1>
+      </div>
+
+      <motion.div 
+        className="absolute bottom-20 left-0 right-0 flex justify-center space-x-8 z-10"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.5 }}
+      >
+        <motion.a
+          href="https://linktr.ee/yeezuz2020"
+          className="text-xl hover:text-gray-300"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          LISTEN NOW
+        </motion.a>
+        {['MERCHANDISE', 'CONCERTS'].map((item) => (
+          <motion.a
+            key={item}
+            href={`/${item.toLowerCase()}`}
+            className="text-xl hover:text-gray-300"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {item}
+          </motion.a>
+        ))}
+      </motion.div>
+
+      <motion.button
+        className="absolute bottom-10 right-10 px-4 py-2 rounded-full border border-white flex items-center justify-center hover:bg-white hover:text-black transition-all duration-300 z-10 text-sm"
+        onClick={toggleMute}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-    >
-        {text}
-    </motion.a>
-);
+      >
+        {isMuted ? 'UNMUTE' : 'MUTE'} MUSIC
+      </motion.button>
+
+      <div className="absolute bottom-4 left-4 text-sm z-10">
+        © 2024 YEEZUZ2020
+      </div>
+    </div>
+  );
+};
 
 export default YeezuzPage;

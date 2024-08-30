@@ -1,13 +1,33 @@
 ---
 // src/layouts/MainLayout.astro
-import { AudioPlayerProvider } from '../context/AudioPlayerContext';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'astro/router';
+import { AnimatePresence } from 'framer-motion';
+import LoadingScreen from '../components/LoadingSpinner
 
-const Layout = ({ children }) => {
-  return (
-    <AudioPlayerProvider>
-      <slot />
-    </AudioPlayerProvider>
-  );
-};
+const [loading, setLoading] = useState(false);
+const router = useRouter();
 
-export default Layout;
+useEffect(() => {
+  const handleStart = () => setLoading(true);
+  const handleComplete = () => setLoading(false);
+
+  router.events.on('routeChangeStart', handleStart);
+  router.events.on('routeChangeComplete', handleComplete);
+  router.events.on('routeChangeError', handleComplete);
+
+  return () => {
+    router.events.off('routeChangeStart', handleStart);
+    router.events.off('routeChangeComplete', handleComplete);
+    router.events.off('routeChangeError', handleComplete);
+  };
+}, [router]);
+---
+
+<AnimatePresence>
+  {loading && <LoadingScreen />}
+</AnimatePresence>
+
+<div>
+  <slot />
+</div>

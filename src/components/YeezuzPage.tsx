@@ -136,7 +136,7 @@ const YeezuzPage = () => {
         {/* Center Content */}
         <div className="flex flex-col items-center justify-center flex-1">
           <motion.h1 
-            className="text-8xl md:text-8xl font-bold mb-4 md:mb-8"
+            className="text-5xl md:text-8xl font-bold mb-4 md:mb-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}

@@ -53,7 +53,7 @@ const YeezuzPage = () => {
   ];
 
   return (
-    <div className="relative h-screen bg-black text-white overflow-hidden cursor-none font-sans">
+    <div className="relative h-screen bg-black text-white overflow-hidden cursor-none font-sans flex flex-col justify-between">
       <CustomCursor />
 
       <video
@@ -67,7 +67,8 @@ const YeezuzPage = () => {
         <source src="/Bigsteppa.mp4" type="video/mp4" />
       </video>
 
-      <nav className="absolute top-0 left-0 w-full p-4 flex justify-between items-center text-xs md:text-sm z-10">
+      {/* Top Navigation */}
+      <nav className="w-full p-4 flex justify-between items-center text-xs md:text-sm z-10">
         <div className="space-x-4 md:space-x-6">
           {navItems.map((item) => (
             <motion.button
@@ -99,9 +100,10 @@ const YeezuzPage = () => {
         </div>
       </nav>
 
-      <div className="relative z-10 flex flex-col items-center justify-center h-full">
+      {/* Center Content */}
+      <div className="flex flex-col items-center justify-center flex-1">
         <motion.h1 
-          className="text-5xl md:text-8xl font-bold mb-8 md:mb-24"
+          className="text-5xl md:text-8xl font-bold mb-4 md:mb-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
@@ -109,9 +111,9 @@ const YeezuzPage = () => {
           YEEZUZ2020
         </motion.h1>
 
-        {/* Buttons moved higher on mobile */}
+        {/* Buttons, always visible */}
         <motion.div 
-          className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-8 mb-16 md:mb-0 z-10"
+          className="flex flex-col md:flex-row justify-center space-y-2 md:space-y-0 md:space-x-8 z-10"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
@@ -138,28 +140,32 @@ const YeezuzPage = () => {
         </motion.div>
       </div>
 
-      {/* Desktop UNMUTE Button */}
-      <motion.button
-        className="hidden md:block absolute bottom-8 right-8 md:bottom-10 md:right-10 px-3 py-2 md:px-4 md:py-2 rounded-full border border-white flex items-center justify-center hover:bg-white hover:text-black transition-all duration-300 z-10 text-xs md:text-sm cursor-none"
-        onClick={toggleMute}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        {isMuted ? 'UNMUTE' : 'MUTE'} MUSIC
-      </motion.button>
+      {/* Bottom Unmute Button and Footer */}
+      <div className="w-full p-4 flex justify-between items-center z-10">
+        {/* Mobile UNMUTE Button */}
+        <motion.button
+          className="block md:hidden px-3 py-2 rounded-full border border-white flex items-center justify-center hover:bg-red-500 hover:text-white transition-all duration-300 text-xs cursor-none"
+          onClick={toggleMute}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          🎵 {isMuted ? 'Play' : 'Pause'}
+        </motion.button>
 
-      {/* Mobile UNMUTE Button */}
-      <motion.button
-        className="block md:hidden absolute bottom-8 right-8 px-3 py-2 rounded-full border border-white flex items-center justify-center hover:bg-red-500 hover:text-white transition-all duration-300 z-10 text-xs cursor-none"
-        onClick={toggleMute}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        🎵 {isMuted ? 'Play' : 'Pause'}
-      </motion.button>
+        {/* Desktop UNMUTE Button */}
+        <motion.button
+          className="hidden md:block px-3 py-2 rounded-full border border-white flex items-center justify-center hover:bg-white hover:text-black transition-all duration-300 text-xs md:text-sm cursor-none"
+          onClick={toggleMute}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          {isMuted ? 'UNMUTE' : 'MUTE'} MUSIC
+        </motion.button>
 
-      <div className="absolute bottom-2 left-2 md:bottom-4 md:left-4 text-xs md:text-sm z-10">
-        © 2024 YEEZUZ2020
+        {/* Footer */}
+        <div className="text-xs md:text-sm">
+          © 2024 YEEZUZ2020
+        </div>
       </div>
     </div>
   );

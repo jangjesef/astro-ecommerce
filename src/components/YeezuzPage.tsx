@@ -159,7 +159,7 @@ const YeezuzPage = () => {
             >
               LISTEN NOW
             </motion.button>
-            {['MERCHANDISE', 'CONCERTS'].map((item) => (
+            {['MERCHANDISE', 'TICKETS'].map((item) => (
               <motion.button
                 key={item}
                 onClick={() => window.location.href = `/${item.toLowerCase()}`}

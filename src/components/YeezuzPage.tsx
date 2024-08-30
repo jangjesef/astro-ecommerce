@@ -50,8 +50,6 @@ const YeezuzPage = () => {
   const navItems = [
     { name: 'HOME', path: '/' },
     { name: 'STORE', path: '/merchandise' },
-    { name: 'ABOUT', path: '/about' },
-    { name: 'PREORDER', path: '/merchandise' },
   ];
 
   return (
@@ -69,8 +67,8 @@ const YeezuzPage = () => {
         <source src="/Bigsteppa.mp4" type="video/mp4" />
       </video>
 
-      <nav className="absolute top-0 left-0 w-full p-4 flex justify-between items-center text-sm z-10">
-        <div className="space-x-6">
+      <nav className="absolute top-0 left-0 w-full p-4 flex justify-between items-center text-xs md:text-sm z-10">
+        <div className="space-x-4 md:space-x-6">
           {navItems.map((item) => (
             <motion.button
               key={item.name}
@@ -83,10 +81,10 @@ const YeezuzPage = () => {
             </motion.button>
           ))}
         </div>
-        <div>
+        <div className="flex space-x-4 md:space-x-6">
           <motion.button
             onClick={() => window.open("https://www.instagram.com/yeezuzboy/?hl=cs", "_blank")}
-            className="hover:text-gray-300 mr-6 bg-transparent border-none cursor-none"
+            className="hover:text-gray-300 bg-transparent border-none cursor-none"
             whileHover={{ scale: 1.05 }}
           >
             INSTAGRAM
@@ -103,7 +101,7 @@ const YeezuzPage = () => {
 
       <div className="relative z-10 flex flex-col items-center justify-center h-full">
         <motion.h1 
-          className="text-8xl font-bold mb-24"
+          className="text-5xl md:text-8xl font-bold mb-16 md:mb-24"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
@@ -113,14 +111,14 @@ const YeezuzPage = () => {
       </div>
 
       <motion.div 
-        className="absolute bottom-20 left-0 right-0 flex justify-center space-x-8 z-10"
+        className="absolute bottom-16 left-0 right-0 flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-8 z-10"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.5 }}
       >
         <motion.button
           onClick={() => window.open("https://linktr.ee/yeezuz2020", "_blank")}
-          className="text-xl hover:text-gray-300 bg-transparent border-none cursor-none"
+          className="text-lg md:text-xl hover:text-gray-300 bg-transparent border-none cursor-none"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -130,7 +128,7 @@ const YeezuzPage = () => {
           <motion.button
             key={item}
             onClick={() => window.location.href = `/${item.toLowerCase()}`}
-            className="text-xl hover:text-gray-300 bg-transparent border-none cursor-none"
+            className="text-lg md:text-xl hover:text-gray-300 bg-transparent border-none cursor-none"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -140,7 +138,7 @@ const YeezuzPage = () => {
       </motion.div>
 
       <motion.button
-        className="absolute bottom-10 right-10 px-4 py-2 rounded-full border border-white flex items-center justify-center hover:bg-white hover:text-black transition-all duration-300 z-10 text-sm cursor-none"
+        className="absolute bottom-8 right-8 md:bottom-10 md:right-10 px-3 py-2 md:px-4 md:py-2 rounded-full border border-white flex items-center justify-center hover:bg-white hover:text-black transition-all duration-300 z-10 text-xs md:text-sm cursor-none"
         onClick={toggleMute}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
@@ -148,7 +146,7 @@ const YeezuzPage = () => {
         {isMuted ? 'UNMUTE' : 'MUTE'} MUSIC
       </motion.button>
 
-      <div className="absolute bottom-4 left-4 text-sm z-10">
+      <div className="absolute bottom-2 left-2 md:bottom-4 md:left-4 text-xs md:text-sm z-10">
         © 2024 YEEZUZ2020
       </div>
     </div>

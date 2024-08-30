@@ -23,7 +23,7 @@ const CustomCursor = () => {
       className="fixed pointer-events-none z-50 mix-blend-difference"
       style={{ left: '-100px', top: '-100px' }}
     >
-      <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="public/favicon.svg">
         <path d="M15 0V30M0 15H30" stroke="white" strokeWidth="2"/>
       </svg>
     </div>
@@ -47,13 +47,6 @@ const YeezuzPage = () => {
     setIsMuted(!isMuted);
   };
 
-  const navItems = [
-    { name: 'HOME', path: '/' },
-    { name: 'STORE', path: '/merchandise' },
-    { name: 'ABOUT', path: '/about' },
-    { name: 'PREORDER', path: '/merchandise' },
-  ];
-
   return (
     <div className="relative h-screen bg-black text-white overflow-hidden cursor-none font-sans">
       <CustomCursor />
@@ -71,33 +64,21 @@ const YeezuzPage = () => {
 
       <nav className="absolute top-0 left-0 w-full p-4 flex justify-between items-center text-sm z-10">
         <div className="space-x-6">
-          {navItems.map((item) => (
-            <motion.button
-              key={item.name}
-              onClick={() => window.location.href = item.path}
-              className="hover:text-gray-300 transition-colors duration-300 bg-transparent border-none cursor-none"
+          {['HOME', 'STORE', 'ABOUT', 'PREORDER'].map((item) => (
+            <motion.a
+              key={item}
+              href={`/${item.toLowerCase()}`}
+              className="hover:text-gray-300 transition-colors duration-300"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              {item.name}
-            </motion.button>
+              {item}
+            </motion.a>
           ))}
         </div>
         <div>
-          <motion.button
-            onClick={() => window.open("https://www.instagram.com/yeezuzboy/?hl=cs", "_blank")}
-            className="hover:text-gray-300 mr-6 bg-transparent border-none cursor-none"
-            whileHover={{ scale: 1.05 }}
-          >
-            INSTAGRAM
-          </motion.button>
-          <motion.button
-            onClick={() => window.location.href = "mailto:yeezuz332@gmail.com"}
-            className="hover:text-gray-300 bg-transparent border-none cursor-none"
-            whileHover={{ scale: 1.05 }}
-          >
-            BOOKING
-          </motion.button>
+          <motion.a href="https://www.instagram.com/yeezuzboy/?hl=cs" className="hover:text-gray-300 mr-6" whileHover={{ scale: 1.05 }}>INSTAGRAM</motion.a>
+          <motion.a href="mailto:yeezuz332@gmail.com" className="hover:text-gray-300" whileHover={{ scale: 1.05 }}>BOOKING</motion.a>
         </div>
       </nav>
 
@@ -118,29 +99,29 @@ const YeezuzPage = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.5 }}
       >
-        <motion.button
-          onClick={() => window.open("https://linktr.ee/yeezuz2020", "_blank")}
-          className="text-xl hover:text-gray-300 bg-transparent border-none cursor-none"
+        <motion.a
+          href="https://linktr.ee/yeezuz2020"
+          className="text-xl hover:text-gray-300"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
           LISTEN NOW
-        </motion.button>
+        </motion.a>
         {['MERCHANDISE', 'CONCERTS'].map((item) => (
-          <motion.button
+          <motion.a
             key={item}
-            onClick={() => window.location.href = `/${item.toLowerCase()}`}
-            className="text-xl hover:text-gray-300 bg-transparent border-none cursor-none"
+            href={`/${item.toLowerCase()}`}
+            className="text-xl hover:text-gray-300"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             {item}
-          </motion.button>
+          </motion.a>
         ))}
       </motion.div>
 
       <motion.button
-        className="absolute bottom-10 right-10 px-4 py-2 rounded-full border border-white flex items-center justify-center hover:bg-white hover:text-black transition-all duration-300 z-10 text-sm cursor-none"
+        className="absolute bottom-10 right-10 px-4 py-2 rounded-full border border-white flex items-center justify-center hover:bg-white hover:text-black transition-all duration-300 z-10 text-sm"
         onClick={toggleMute}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
